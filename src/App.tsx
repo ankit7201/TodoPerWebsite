@@ -17,11 +17,12 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="w-screen">
       <MainPopup
         todos={todos}
         setTodos={updateTodosInChromeStorage}
         deleteTodo={deleteTodoFromChromeStorage}
+        domain={hostName}
       />
     </div>
   );

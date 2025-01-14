@@ -9,7 +9,12 @@ export const TodoList = ({ todoList, deleteTodo }: TodoListProps) => {
   return (
     <>
       {todoList.map((todo) => {
-        return <TodoWithDeleteButton todo={todo} deleteTodo={deleteTodo} />;
+        return (
+          <div>
+            <TodoWithDeleteButton todo={todo} deleteTodo={deleteTodo} />
+            <div className="h-0.5 w-full bg-slate-50 mb-2"></div>
+          </div>
+        );
       })}
     </>
   );
