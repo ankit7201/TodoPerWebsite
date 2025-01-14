@@ -3,8 +3,10 @@ import { MainPopup } from "./pages/MainPopup";
 
 function App() {
   const { loadingHostName, hostName } = useHostName();
-  const { loadingTodos, todos, updateTodosInChromeStorage } =
-    useTodos(hostName);
+
+  const { loadingTodos, todos, updateTodosInChromeStorage } = useTodos({
+    value: hostName,
+  });
 
   if (loadingHostName || loadingTodos) {
     return <div>Loading...</div>;

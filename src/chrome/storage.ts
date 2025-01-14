@@ -1,17 +1,18 @@
-export const addTodoForDomain = async (
-  domain: string,
-  todo: string,
-): Promise<void> => {
-  const result = await chrome.storage.local.get([domain]);
-  const todos: string[] = result[domain] || [];
-  let updatedTodos = [...todos, todo];
+import { Domain } from "../types/Domain";
+import { Todo } from "../types/Todo";
 
-  await chrome.storage.local.set({ [domain]: updatedTodos });
+export const addTodoForDomain = async (
+  domain: Domain,
+  todo: Todo,
+): Promise<void> => {
+  const result = await chrome.storage.local.get([domain.value]);
+  const todos: Todo[] = result[domain.value] || [];
+
+  const updatedTodos = [...todos, todo];
+  await chrome.storage.local.set({ [domain.value]: updatedTodos });
 };
 
-export const getAllTodosForDomain = async (
-  domain: string,
-): Promise<string[]> => {
-  const result = await chrome.storage.local.get([domain]);
-  return result[domain] == undefined ? [] : result[domain];
+export const getAllTodosForDomain = async (domain: Domain): Promise<Todo[]> => {
+  const result = await chrome.storage.local.get([domain.value]);
+  return result[domain.value] == undefined ? [] : result[domain.value];
 };

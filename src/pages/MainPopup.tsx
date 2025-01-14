@@ -1,15 +1,14 @@
-// @ts-ignore
-import { Dispatch, SetStateAction } from "react";
 import { TodoInput } from "../components/TodoInput";
 import { TodoList } from "../components/TodoList";
+import { Todo } from "../types/Todo";
 
 interface MainPopupProps {
-  todos: string[];
-  setTodos: (newTodo: string) => void;
+  todos: Todo[];
+  setTodos: (newTodo: Todo) => void;
 }
 
 export const MainPopup = ({ todos, setTodos }: MainPopupProps) => {
-  function addTodo(newTodo: string) {
+  function addTodo(newTodo: Todo) {
     setTodos(newTodo);
   }
 

@@ -2,29 +2,8 @@ import { useEffect, useState } from "react";
 import { addTodoForDomain, getAllTodosForDomain } from "../chrome/storage";
 import { getCurrentActiveTabUrl } from "../chrome/tab";
 import { extractDomain } from "../utils";
-
-export const useTodos = (domain: string) => {
-  const [loadingTodos, setLoadingTodos] = useState<Boolean>(true);
-  const [todos, setTodos] = useState<string[]>([]);
-
-  useEffect(() => {
-    getAllTodosForDomain(domain).then((todos) => {
-      setTodos(todos);
-      setLoadingTodos(false);
-    });
-  }, [domain]);
-
-  function updateTodosInChromeStorage(newTodo: string) {
-    setTodos([...todos, newTodo]);
-    addTodoForDomain(domain, newTodo);
-  }
-
-  return {
-    loadingTodos,
-    todos,
-    updateTodosInChromeStorage,
-  };
-};
+import { Domain } from "../types/Domain";
+import { Todo } from "../types/Todo";
 
 export const useHostName = () => {
   const [loadingHostName, setLoadingHostName] = useState<Boolean>(true);
@@ -47,5 +26,28 @@ export const useHostName = () => {
   return {
     loadingHostName,
     hostName,
+  };
+};
+
+export const useTodos = (domain: Domain) => {
+  const [loadingTodos, setLoadingTodos] = useState<Boolean>(true);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  useEffect(() => {
+    getAllTodosForDomain(domain).then((todos: Todo[]) => {
+      setTodos(todos);
+      setLoadingTodos(false);
+    });
+  }, [domain.value]);
+
+  function updateTodosInChromeStorage(newTodo: Todo) {
+    setTodos([...todos, newTodo]);
+    addTodoForDomain(domain, newTodo);
+  }
+
+  return {
+    loadingTodos,
+    todos,
+    updateTodosInChromeStorage,
   };
 };

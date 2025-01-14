@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { Todo } from "../types/Todo";
+import { v4 as uuidv4 } from "uuid";
 
 interface TodoInputProps {
-  addTodo: (newTodo: string) => void;
+  addTodo: (newTodo: Todo) => void;
 }
 
 export const TodoInput = ({ addTodo }: TodoInputProps) => {
@@ -23,7 +25,10 @@ export const TodoInput = ({ addTodo }: TodoInputProps) => {
             className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
             onClick={(e: React.FormEvent) => {
               e.preventDefault();
-              addTodo(inputValue);
+              addTodo({
+                id: uuidv4(),
+                value: inputValue,
+              });
             }}
           >
             Add
