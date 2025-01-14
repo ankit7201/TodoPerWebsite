@@ -3,8 +3,12 @@ import { MainPopup } from "./pages/MainPopup";
 
 function App() {
   const { loadingHostName, hostName } = useHostName();
-
-  const { loadingTodos, todos, updateTodosInChromeStorage } = useTodos({
+  const {
+    loadingTodos,
+    todos,
+    updateTodosInChromeStorage,
+    deleteTodoFromChromeStorage,
+  } = useTodos({
     value: hostName,
   });
 
@@ -14,7 +18,11 @@ function App() {
 
   return (
     <div>
-      <MainPopup todos={todos} setTodos={updateTodosInChromeStorage} />
+      <MainPopup
+        todos={todos}
+        setTodos={updateTodosInChromeStorage}
+        deleteTodo={deleteTodoFromChromeStorage}
+      />
     </div>
   );
 }

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { addTodoForDomain, getAllTodosForDomain } from "../chrome/storage";
+import {
+  addTodoForDomain,
+  deleteTodoForDomain,
+  getAllTodosForDomain,
+} from "../chrome/storage";
 import { getCurrentActiveTabUrl } from "../chrome/tab";
 import { extractDomain } from "../utils";
 import { Domain } from "../types/Domain";
@@ -45,9 +49,17 @@ export const useTodos = (domain: Domain) => {
     addTodoForDomain(domain, newTodo);
   }
 
+  function deleteTodoFromChromeStorage(todoId: string) {
+    const filteredTodo: Todo[] = todos.filter((item) => item.id !== todoId);
+    setTodos(filteredTodo);
+
+    deleteTodoForDomain(domain, todoId);
+  }
+
   return {
     loadingTodos,
     todos,
     updateTodosInChromeStorage,
+    deleteTodoFromChromeStorage,
   };
 };
